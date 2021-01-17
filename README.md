@@ -1,2 +1,3 @@
-# Cyberpunk2137
-Taki cyberPunk ... tylko gorszy
+# Pająk
+gra o pająku
+
