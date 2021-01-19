@@ -1,0 +1,164 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://Player/spider_model.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Player/Camera.gd" type="Script" id=2]
+[ext_resource path="res://Player/Player.gd" type="Script" id=3]
+[ext_resource path="res://Player/Animations/Playerslow_walk.tres" type="Animation" id=4]
+[ext_resource path="res://Player/Animations/PlayerIdle.tres" type="Animation" id=5]
+[ext_resource path="res://Player/Animations/Importswalk_right.tres" type="Animation" id=6]
+[ext_resource path="res://Player/Animations/Importswalk_right_stright.tres" type="Animation" id=7]
+
+[sub_resource type="CylinderShape" id=1]
+radius = 2.93673
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "Playerslow_walk"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "Playerslow_walk"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "PlayerIdle"
+
+[sub_resource type="AnimationNodeAnimation" id=5]
+animation = "PlayerIdle"
+
+[sub_resource type="AnimationNodeBlend3" id=6]
+
+[sub_resource type="AnimationNodeTimeScale" id=7]
+
+[sub_resource type="AnimationNodeTimeScale" id=8]
+
+[sub_resource type="AnimationNodeTransition" id=9]
+input_count = 2
+xfade_time = 0.1
+input_0/name = "aiming"
+input_0/auto_advance = false
+input_1/name = "not_aiming"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeOneShot" id=10]
+
+[sub_resource type="AnimationNodeTimeScale" id=11]
+
+[sub_resource type="AnimationNodeAnimation" id=12]
+animation = "PlayerIdle"
+
+[sub_resource type="AnimationNodeAnimation" id=13]
+animation = "Playerslow_walk"
+
+[sub_resource type="AnimationNodeAnimation" id=14]
+animation = "Playerslow_walk"
+
+[sub_resource type="AnimationNodeAnimation" id=15]
+animation = "Importswalk_right_stright"
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "Importswalk_right_stright"
+
+[sub_resource type="AnimationNodeAnimation" id=17]
+animation = "Importswalk_right_stright"
+
+[sub_resource type="AnimationNodeAnimation" id=18]
+animation = "Importswalk_right_stright"
+
+[sub_resource type="AnimationNodeAnimation" id=19]
+animation = "Importswalk_right"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "Importswalk_right"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=21]
+blend_point_0/node = SubResource( 12 )
+blend_point_0/pos = Vector2( 0, 0 )
+blend_point_1/node = SubResource( 13 )
+blend_point_1/pos = Vector2( 0, -1 )
+blend_point_2/node = SubResource( 14 )
+blend_point_2/pos = Vector2( 0, 1 )
+blend_point_3/node = SubResource( 15 )
+blend_point_3/pos = Vector2( 1, 1 )
+blend_point_4/node = SubResource( 16 )
+blend_point_4/pos = Vector2( 1, -1 )
+blend_point_5/node = SubResource( 17 )
+blend_point_5/pos = Vector2( -1, 1 )
+blend_point_6/node = SubResource( 18 )
+blend_point_6/pos = Vector2( -1, -1 )
+blend_point_7/node = SubResource( 19 )
+blend_point_7/pos = Vector2( -1, 0 )
+blend_point_8/node = SubResource( 20 )
+blend_point_8/pos = Vector2( 1, 0 )
+
+[sub_resource type="AnimationNodeTimeScale" id=22]
+
+[sub_resource type="AnimationNodeBlendTree" id=23]
+graph_offset = Vector2( -512, 346.5 )
+nodes/Animation/node = SubResource( 5 )
+nodes/Animation/position = Vector2( -180, 260 )
+"nodes/Animation 2/node" = SubResource( 2 )
+"nodes/Animation 2/position" = Vector2( -380, 380 )
+"nodes/Animation 3/node" = SubResource( 3 )
+"nodes/Animation 3/position" = Vector2( -380, 500 )
+"nodes/Animation 4/node" = SubResource( 4 )
+"nodes/Animation 4/position" = Vector2( 60, 520 )
+nodes/Blend3/node = SubResource( 6 )
+nodes/Blend3/position = Vector2( 20, 300 )
+nodes/TimeScale/node = SubResource( 8 )
+nodes/TimeScale/position = Vector2( -20, 120 )
+"nodes/TimeScale 2/node" = SubResource( 7 )
+"nodes/TimeScale 2/position" = Vector2( 200, 380 )
+nodes/aim_transmition/node = SubResource( 9 )
+nodes/aim_transmition/position = Vector2( 180, 180 )
+nodes/output/position = Vector2( 560, 240 )
+nodes/rool/node = SubResource( 10 )
+nodes/rool/position = Vector2( 380, 260 )
+nodes/run_scale/node = SubResource( 11 )
+nodes/run_scale/position = Vector2( -160, 480 )
+nodes/strafe/node = SubResource( 21 )
+nodes/strafe/position = Vector2( -220, 100 )
+nodes/walk_scale/node = SubResource( 22 )
+nodes/walk_scale/position = Vector2( -160, 360 )
+node_connections = [ "output", 0, "rool", "Blend3", 0, "Animation", "Blend3", 1, "walk_scale", "Blend3", 2, "run_scale", "TimeScale", 0, "strafe", "TimeScale 2", 0, "Animation 4", "rool", 0, "aim_transmition", "rool", 1, "TimeScale 2", "run_scale", 0, "Animation 3", "walk_scale", 0, "Animation 2", "aim_transmition", 0, "TimeScale", "aim_transmition", 1, "Blend3" ]
+
+[node name="Player" type="KinematicBody"]
+script = ExtResource( 3 )
+
+[node name="Mesh" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.121243, 0 )
+
+[node name="player" parent="Mesh" instance=ExtResource( 1 )]
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0540638, 0.918054, 0.377573 )
+shape = SubResource( 1 )
+
+[node name="Camroot" type="Spatial" parent="."]
+script = ExtResource( 2 )
+
+[node name="h" type="Spatial" parent="Camroot"]
+
+[node name="v" type="Spatial" parent="Camroot/h"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.10325, 1.42564 )
+
+[node name="Camera" type="ClippedCamera" parent="Camroot/h/v"]
+transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, -12.5647 )
+process_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Mesh/player")
+anims/Importswalk_right = ExtResource( 6 )
+anims/Importswalk_right_stright = ExtResource( 7 )
+anims/PlayerIdle = ExtResource( 5 )
+anims/Playerslow_walk = ExtResource( 4 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 23 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/Blend3/blend_amount = -1.0
+parameters/TimeScale/scale = 1.0
+"parameters/TimeScale 2/scale" = 1.0
+parameters/aim_transmition/current = 0
+parameters/rool/active = false
+parameters/run_scale/scale = 2.0
+parameters/strafe/blend_position = Vector2( 0.998454, 0.0344827 )
+parameters/walk_scale/scale = 1.0
