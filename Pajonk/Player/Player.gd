@@ -17,7 +17,7 @@ var acceleration = 4
 var vertical_velocity = 0
 #var gravity = 1
 
-var angular_acceleration = 4
+var angular_acceleration = 3
 
 func _input(event):
 	if event is InputEventMouseMotion:
