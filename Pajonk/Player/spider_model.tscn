@@ -1,8 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Player/Material_002.material" type="Material" id=1]
-[ext_resource path="res://Player/Animations/Playerslow_walk.tres" type="Animation" id=2]
-[ext_resource path="res://Player/Animations/PlayerIdle.tres" type="Animation" id=3]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Sphere"
@@ -250,7 +248,3 @@ bones/26/bound_children = [  ]
 mesh = SubResource( 1 )
 skin = SubResource( 2 )
 material/0 = null
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Idle = ExtResource( 3 )
-anims/slow_walk = ExtResource( 2 )

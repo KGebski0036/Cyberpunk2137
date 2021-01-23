@@ -9,6 +9,11 @@ var strafe = Vector3.ZERO
 var speed = 0
 var walk_speed = 15
 
+var gravity = 50
+var jump = 30
+var vertical_velocity = 0
+var weight_on_ground = 10
+
 var aim_turn = 0
 
 var acceleration = 4
@@ -54,10 +59,22 @@ func _physics_process(delta):
 			direction = camroot.global_transform.basis.z
 	
 	velocity = lerp(velocity, direction * speed, delta * acceleration)
-		
-	move_and_slide(velocity, Vector3.UP)
 	
-	if(!is_aiming):
+		
+	move_and_slide(velocity + Vector3.UP * vertical_velocity - get_floor_normal() * weight_on_ground, Vector3.UP)
+	var normal = $RayCast.get_collision_normal()
+	var xform = alain_with_y(global_transform, normal)
+	global_transform = global_transform.interpolate_with(xform, 0.2)
+	
+	if(!is_on_floor()):
+		vertical_velocity -= gravity * delta 
+	else:
+		if(Input.is_action_just_pressed("jump")):
+			vertical_velocity = jump
+		else:	
+			vertical_velocity = 0
+		
+	if(!is_aiming):	
 		mesh.rotation.y = lerp_angle(mesh.rotation.y, atan2(direction.x, direction.z), delta * angular_acceleration)
 	else:
 		mesh.rotation.y = lerp_angle(mesh.rotation.y, cam_rotation, delta * angular_acceleration)
@@ -76,3 +93,8 @@ func _physics_process(delta):
 		
 	aim_turn = 0
 	
+func alain_with_y(xform, new_y):
+	xform.basis.y = new_y
+	xform.basis.x = -xform.basis.z.cross(new_y)
+	xform.basis = xform.basis.orthonormalized()
+	return xform
