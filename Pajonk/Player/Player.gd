@@ -25,29 +25,38 @@ onready var mesh = $Mesh
 onready var camroot = $Camroot/h
 
 var is_aiming = false
+var is_sprinting = false 
+var is_jumping = false
 
+var move_vector = Vector2.ZERO
+
+func get_actions():
+	is_aiming = Input.is_action_pressed("aim")
+	is_sprinting = Input.is_action_pressed("sprint")
+	is_jumping = Input.is_action_just_pressed("jump")
+	move_vector.x = Input.get_action_strength("right") - Input.get_action_strength("left")
+	move_vector.y = Input.get_action_strength("foreward") - Input.get_action_strength("backward")
+	
 func _input(event):
 	if event is InputEventMouseMotion:
 		aim_turn = -event.relative.x * 0.015
+	else: get_actions()
 
 func _physics_process(delta):
-	if (Input.is_action_pressed("aim")):
+	if (is_aiming):
 		tree.set("parameters/aim_transmition/current", 0)
-		is_aiming = true
 	else:
 		tree.set("parameters/aim_transmition/current", 1)
-		is_aiming = false
 		
-	var cam_rotation = camroot.global_transform.basis.get_euler().y
+	var cam_rotation = camroot.global_transform.basis.get_euler().y 
 	
-	if (Input.is_action_pressed("left") ||  Input.is_action_pressed("right") || Input.is_action_pressed("foreward") || Input.is_action_pressed("backward")):
-		if(Input.is_action_pressed("sprint") && !is_aiming):
+	if (move_vector.length() > 0):
+		if(is_sprinting && !is_aiming):
 			speed = walk_speed * 2
 		else:
 			speed = walk_speed
 			
-		direction = Vector3(Input.get_action_strength("left") - Input.get_action_strength("right"),0,Input.get_action_strength("foreward") - Input.get_action_strength("backward"))
-		
+		direction = Vector3(move_vector.x,0,move_vector.y) 
 		strafe_dir = direction
 		
 		direction = direction.rotated(Vector3.UP, cam_rotation).normalized()
@@ -59,19 +68,18 @@ func _physics_process(delta):
 			direction = camroot.global_transform.basis.z
 	
 	velocity = lerp(velocity, direction * speed, delta * acceleration)
-	
 		
 	move_and_slide(velocity + Vector3.UP * vertical_velocity - get_floor_normal() * weight_on_ground, Vector3.UP)
 	var normal = $RayCast.get_collision_normal()
-	var xform = alain_with_y(global_transform, normal)
+	var xform = align_with_y(global_transform, normal)
 	global_transform = global_transform.interpolate_with(xform, 0.2)
 	
 	if(!is_on_floor()):
 		vertical_velocity -= gravity * delta 
 	else:
-		if(Input.is_action_just_pressed("jump")):
+		if(is_jumping):
 			vertical_velocity = jump
-		else:	
+		else:
 			vertical_velocity = 0
 		
 	if(!is_aiming):	
@@ -93,7 +101,7 @@ func _physics_process(delta):
 		
 	aim_turn = 0
 	
-func alain_with_y(xform, new_y):
+func align_with_y(xform, new_y):
 	xform.basis.y = new_y
 	xform.basis.x = -xform.basis.z.cross(new_y)
 	xform.basis = xform.basis.orthonormalized()
