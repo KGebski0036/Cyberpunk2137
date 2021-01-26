@@ -131,7 +131,7 @@ shadow_enabled = true
 environment = SubResource( 11 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -14.6966, 1.06745, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5329, 1.023, 1.23802 )
 
 [node name="terain" parent="." instance=ExtResource( 3 )]
 transform = Transform( -3.25841e-07, 0, 2, 0, 2, 0, -2, 0, -3.25841e-07, -149.039, 0.494755, -3.07706 )

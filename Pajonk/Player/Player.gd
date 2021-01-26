@@ -22,7 +22,7 @@ var angular_acceleration = 3
 
 onready var tree = $AnimationTree
 onready var mesh = $Mesh
-onready var camroot = $Camroot/h
+onready var camroot_h = $Camroot/h
 
 var is_aiming = false
 var is_sprinting = false 
@@ -30,17 +30,17 @@ var is_jumping = false
 
 var move_vector = Vector2.ZERO
 
-func get_actions():
+func get_controls():
 	is_aiming = Input.is_action_pressed("aim")
 	is_sprinting = Input.is_action_pressed("sprint")
 	is_jumping = Input.is_action_just_pressed("jump")
 	move_vector.x = Input.get_action_strength("right") - Input.get_action_strength("left")
 	move_vector.y = Input.get_action_strength("foreward") - Input.get_action_strength("backward")
-	
+	move_vector.x = -move_vector.x
 func _input(event):
 	if event is InputEventMouseMotion:
 		aim_turn = -event.relative.x * 0.015
-	else: get_actions()
+	else: get_controls()
 
 func _physics_process(delta):
 	if (is_aiming):
@@ -48,7 +48,7 @@ func _physics_process(delta):
 	else:
 		tree.set("parameters/aim_transmition/current", 1)
 		
-	var cam_rotation = camroot.global_transform.basis.get_euler().y 
+	var cam_rotation = camroot_h.rotation.y 
 	
 	if (move_vector.length() > 0):
 		if(is_sprinting && !is_aiming):
@@ -56,7 +56,7 @@ func _physics_process(delta):
 		else:
 			speed = walk_speed
 			
-		direction = Vector3(move_vector.x,0,move_vector.y) 
+		direction = Vector3(move_vector.x,0,move_vector.y) # Vector3(1,0,0)
 		strafe_dir = direction
 		
 		direction = direction.rotated(Vector3.UP, cam_rotation).normalized()
@@ -65,14 +65,17 @@ func _physics_process(delta):
 		strafe_dir = Vector3.ZERO
 		
 		if (is_aiming):
-			direction = camroot.global_transform.basis.z
+			direction = camroot_h.global_transform.basis.z
 	
 	velocity = lerp(velocity, direction * speed, delta * acceleration)
 		
-	move_and_slide(velocity + Vector3.UP * vertical_velocity - get_floor_normal() * weight_on_ground, Vector3.UP)
+	move_and_slide(velocity + Vector3.UP * vertical_velocity - get_floor_normal() * weight_on_ground, Vector3.UP,false,4,2)
 	var normal = $RayCast.get_collision_normal()
 	var xform = align_with_y(global_transform, normal)
-	global_transform = global_transform.interpolate_with(xform, 0.2)
+	x
+	
+	
+
 	
 	if(!is_on_floor()):
 		vertical_velocity -= gravity * delta 
