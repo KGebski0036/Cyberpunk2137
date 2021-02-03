@@ -10,7 +10,7 @@
 
 [sub_resource type="CylinderShape" id=1]
 radius = 3.3321
-height = 4.90926
+height = 6.86079
 
 [sub_resource type="AnimationNodeAnimation" id=2]
 animation = "Playerslow_walk"

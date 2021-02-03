@@ -72,7 +72,7 @@ func _physics_process(delta):
 	move_and_slide(velocity + Vector3.UP * vertical_velocity - get_floor_normal() * weight_on_ground, Vector3.UP,false,4,2)
 	var normal = $RayCast.get_collision_normal()
 	var xform = align_with_y(global_transform, normal)
-	x
+
 	
 	
 
