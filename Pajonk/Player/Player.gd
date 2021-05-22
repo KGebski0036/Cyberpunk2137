@@ -23,6 +23,7 @@ var angular_acceleration = 3
 onready var tree = $AnimationTree
 onready var mesh = $Mesh
 onready var camroot_h = $Camroot/h
+onready var raycast = $RayCast
 
 var is_aiming = false
 var is_sprinting = false 
@@ -31,32 +32,37 @@ var is_jumping = false
 var move_vector = Vector2.ZERO
 
 func get_controls():
+	
 	is_aiming = Input.is_action_pressed("aim")
 	is_sprinting = Input.is_action_pressed("sprint")
 	is_jumping = Input.is_action_just_pressed("jump")
-	move_vector.x = Input.get_action_strength("right") - Input.get_action_strength("left")
+	
+	move_vector.x = Input.get_action_strength("left") - Input.get_action_strength("right")
 	move_vector.y = Input.get_action_strength("foreward") - Input.get_action_strength("backward")
-	move_vector.x = -move_vector.x
+
 func _input(event):
+	
 	if event is InputEventMouseMotion:
 		aim_turn = -event.relative.x * 0.015
-	else: get_controls()
+	else: 
+		get_controls()
 
-func _physics_process(delta):
+func check_animation():
 	if (is_aiming):
-		tree.set("parameters/aim_transmition/current", 0)
+		tree.set("parameters/aim_Fmition/current", 0)
 	else:
 		tree.set("parameters/aim_transmition/current", 1)
-		
-	var cam_rotation = camroot_h.rotation.y 
-	
+
+func check_direction():
 	if (move_vector.length() > 0):
+		var cam_rotation = camroot_h.rotation.y
+		
 		if(is_sprinting && !is_aiming):
 			speed = walk_speed * 2
 		else:
 			speed = walk_speed
 			
-		direction = Vector3(move_vector.x,0,move_vector.y) # Vector3(1,0,0)
+		direction = Vector3(move_vector.x,0,move_vector.y)
 		strafe_dir = direction
 		
 		direction = direction.rotated(Vector3.UP, cam_rotation).normalized()
@@ -66,17 +72,8 @@ func _physics_process(delta):
 		
 		if (is_aiming):
 			direction = camroot_h.global_transform.basis.z
-	
-	velocity = lerp(velocity, direction * speed, delta * acceleration)
-		
-	move_and_slide(velocity + Vector3.UP * vertical_velocity - get_floor_normal() * weight_on_ground, Vector3.UP,false,4,2)
-	var normal = $RayCast.get_collision_normal()
-	var xform = align_with_y(global_transform, normal)
 
-	
-	
-
-	
+func check_jump(delta):
 	if(!is_on_floor()):
 		vertical_velocity -= gravity * delta 
 	else:
@@ -84,14 +81,30 @@ func _physics_process(delta):
 			vertical_velocity = jump
 		else:
 			vertical_velocity = 0
-		
-	if(!is_aiming):	
+
+func check_mesh_rotate(delta):
+	if(!is_aiming):
 		mesh.rotation.y = lerp_angle(mesh.rotation.y, atan2(direction.x, direction.z), delta * angular_acceleration)
 	else:
+		var cam_rotation = camroot_h.rotation.y
 		mesh.rotation.y = lerp_angle(mesh.rotation.y, cam_rotation, delta * angular_acceleration)
 		
+func _physics_process(delta):
+	
+	check_animation()
+	
+	check_direction()
+	
+	velocity = lerp(velocity, direction * speed, delta * acceleration)
+	
+	move_and_slide(velocity + Vector3.UP * vertical_velocity - get_floor_normal() * weight_on_ground, Vector3.UP,false,4,2)
+	
+	check_jump(delta)
+	
+	check_mesh_rotate(delta)
+		
 	strafe = lerp(strafe, strafe_dir + Vector3.RIGHT * aim_turn, delta * acceleration)
-
+	
 	tree.set("parameters/strafe/blend_position", Vector2(-strafe.x, strafe.z))
 	
 	var iw_blend = (velocity.length() - walk_speed) / walk_speed
@@ -104,8 +117,3 @@ func _physics_process(delta):
 		
 	aim_turn = 0
 	
-func align_with_y(xform, new_y):
-	xform.basis.y = new_y
-	xform.basis.x = -xform.basis.z.cross(new_y)
-	xform.basis = xform.basis.orthonormalized()
-	return xform
