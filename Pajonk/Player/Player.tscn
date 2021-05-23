@@ -167,3 +167,7 @@ parameters/walk_scale/scale = 3.0
 [node name="RayCast" type="RayCast" parent="."]
 enabled = true
 cast_to = Vector3( 0, -3, 0 )
+
+[node name="DemageTimer" type="Timer" parent="."]
+process_mode = 0
+one_shot = true

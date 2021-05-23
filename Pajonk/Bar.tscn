@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Imports/bg_bar.png" type="Texture" id=1]
+[ext_resource path="res://Imports/tlo baru.png" type="Texture" id=2]
+[ext_resource path="res://Imports/SaucerBB.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Imports/fill_bar.png" type="Texture" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 14
+outline_color = Color( 0.0666667, 0.0313726, 0.0313726, 1 )
+font_data = ExtResource( 3 )
+
+[node name="Bar" type="HBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Counter" type="NinePatchRect" parent="."]
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 0 )
+texture = ExtResource( 2 )
+region_rect = Rect2( 147.241, -4.39584, 1046.56, 1773.56 )
+patch_margin_top = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Counter"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -100.0
+margin_top = -49.0
+margin_right = -4.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 1 )
+text = "HP 20/20"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HP_bar" type="TextureProgress" parent="."]
+margin_left = 104.0
+margin_right = 254.0
+margin_bottom = 50.0
+max_value = 20.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 4 )

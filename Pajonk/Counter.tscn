@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Imports/tlo baru.png" type="Texture" id=1]
+[ext_resource path="res://Imports/SaucerBB.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Imports/deds.png" type="Texture" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 14
+outline_color = Color( 0.0666667, 0.0313726, 0.0313726, 1 )
+font_data = ExtResource( 2 )
+
+[node name="Counter" type="NinePatchRect"]
+margin_left = -1.0
+margin_right = 245.0
+margin_bottom = 85.0
+texture = ExtResource( 1 )
+region_rect = Rect2( 147.241, -4.39584, 1046.56, 1773.56 )
+patch_margin_top = 15
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -150.668
+margin_top = -70.5887
+margin_right = 269.332
+margin_bottom = 349.411
+rect_scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -48.5
+margin_right = 181.0
+margin_bottom = 50.5
+custom_fonts/font = SubResource( 1 )
+text = "10"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

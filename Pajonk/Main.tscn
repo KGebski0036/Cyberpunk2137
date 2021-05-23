@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://addons/kenney_prototype_textures/orange/texture_06.png" type="Texture" id=2]
 [ext_resource path="res://addons/terain.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Enemy.gd" type="Script" id=4]
+[ext_resource path="res://Interface.tscn" type="PackedScene" id=5]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -69,6 +71,24 @@ shader = SubResource( 7 )
 
 [sub_resource type="BoxShape" id=9]
 
+[sub_resource type="CubeMesh" id=12]
+
+[sub_resource type="SpatialMaterial" id=14]
+albedo_color = Color( 0.92549, 0.0784314, 0.0784314, 1 )
+
+[sub_resource type="BoxShape" id=13]
+
+[sub_resource type="SphereShape" id=17]
+radius = 19.9733
+
+[sub_resource type="CapsuleShape" id=15]
+height = 1.00153
+
+[sub_resource type="CapsuleMesh" id=16]
+
+[sub_resource type="SphereShape" id=18]
+radius = 4.79367
+
 [sub_resource type="ProceduralSky" id=10]
 sky_top_color = Color( 0.294118, 0.733333, 0.976471, 1 )
 sky_horizon_color = Color( 0.392157, 0.576471, 0.72549, 1 )
@@ -125,8 +145,54 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="teren/neutralny/test2/StaticBody"]
 shape = SubResource( 2 )
 
+[node name="MeshInstance3" type="MeshInstance" parent="teren/neutralny"]
+transform = Transform( 12.0706, 0, 0, 0, 1, 0, 0, 0, 11.3144, 177.767, 5.93741, -1.57557 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 14 )
+
+[node name="StaticBody" type="StaticBody" parent="teren/neutralny/MeshInstance3"]
+
+[node name="CollisionShape" type="CollisionShape" parent="teren/neutralny/MeshInstance3/StaticBody"]
+shape = SubResource( 13 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="teren/neutralny"]
+transform = Transform( 16.9267, 0, 0, 0, 1, 0, 0, 0, 3.91935, 139.619, 5.93741, -1.57557 )
+mesh = SubResource( 12 )
+material/0 = SubResource( 14 )
+
+[node name="StaticBody" type="StaticBody" parent="teren/neutralny/MeshInstance4"]
+
+[node name="CollisionShape" type="CollisionShape" parent="teren/neutralny/MeshInstance4/StaticBody"]
+shape = SubResource( 13 )
+
 [node name="terain" parent="teren/neutralny" instance=ExtResource( 3 )]
 transform = Transform( -3.25841e-07, 0, 2, 0, 2, 0, -2, 0, -3.25841e-07, -149.039, 0.494755, -3.07706 )
+
+[node name="wrogi" type="Node" parent="teren"]
+
+[node name="Enemy" type="KinematicBody" parent="teren/wrogi"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 179.035, 7.77445, -1.97414 )
+script = ExtResource( 4 )
+
+[node name="Area" type="Area" parent="teren/wrogi/Enemy"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2103, 0 )
+
+[node name="CollisionShape" type="CollisionShape" parent="teren/wrogi/Enemy/Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0941544, 3.8147e-06, 0.0172787 )
+shape = SubResource( 17 )
+
+[node name="CollisionShape" type="CollisionShape" parent="teren/wrogi/Enemy"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 1.02011, 0 )
+shape = SubResource( 15 )
+
+[node name="MeshInstance" type="MeshInstance" parent="teren/wrogi/Enemy/CollisionShape"]
+mesh = SubResource( 16 )
+material/0 = null
+
+[node name="DemageArea" type="Area" parent="teren/wrogi/Enemy"]
+
+[node name="CollisionShape" type="CollisionShape" parent="teren/wrogi/Enemy/DemageArea"]
+shape = SubResource( 18 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, -1.18786e-05, 1.64302e-06, 8.377e-06, 0.790019, 0.613083, -8.58057e-06, -0.613083, 0.790019, 17.4514, 99.4523, 5.93136 )
@@ -139,4 +205,11 @@ environment = SubResource( 11 )
 [node name="Player" parent="." groups=[
 "player",
 ] instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 85.2791, 1.71355, 1.94595 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.5399, 5.62521, -0.0777926 )
+
+[node name="Interface" parent="Player" instance=ExtResource( 5 )]
+
+[connection signal="body_entered" from="teren/wrogi/Enemy/Area" to="teren/wrogi/Enemy" method="_on_Area_body_entered"]
+[connection signal="body_exited" from="teren/wrogi/Enemy/Area" to="teren/wrogi/Enemy" method="_on_Area_body_exited"]
+[connection signal="body_entered" from="teren/wrogi/Enemy/DemageArea" to="teren/wrogi/Enemy" method="_on_DemageArea_body_entered"]
+[connection signal="body_exited" from="teren/wrogi/Enemy/DemageArea" to="teren/wrogi/Enemy" method="_on_DemageArea_body_exited"]

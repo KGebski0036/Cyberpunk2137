@@ -29,7 +29,27 @@ var is_aiming = false
 var is_sprinting = false 
 var is_jumping = false
 
+var max_hp = 20
+var hp = max_hp
+
+var deds = 0
+var is_demaged = false
+var demage_deal = 0
+onready var demage_timer = $DemageTimer
+
 var move_vector = Vector2.ZERO
+
+onready var hp_label = $Interface/Bar/Counter/Label as Label
+onready var hp_bar = $Interface/Bar/HP_bar as TextureProgress
+onready var deds_label = $Interface/Deds/Label
+
+func update_interface():
+	hp_bar.max_value = max_hp
+	hp_bar.value = hp
+	hp_label.text = "Hp " + hp as String + "/" + max_hp as String
+	deds_label.text = deds as String
+
+
 
 func get_controls():
 	
@@ -76,6 +96,7 @@ func check_direction():
 func check_jump(delta):
 	if(!is_on_floor()):
 		vertical_velocity -= gravity * delta 
+
 	else:
 		if(is_jumping):
 			vertical_velocity = jump
@@ -88,14 +109,23 @@ func check_mesh_rotate(delta):
 	else:
 		var cam_rotation = camroot_h.rotation.y
 		mesh.rotation.y = lerp_angle(mesh.rotation.y, cam_rotation, delta * angular_acceleration)
-		
+
+func check_demage():
+	if demage_timer.is_stopped():
+		demage_timer.start()
+		hp -= demage_deal
+	
 func _physics_process(delta):
 	
 	check_animation()
 	
 	check_direction()
+	if(is_demaged):
+		check_demage()
 	
 	velocity = lerp(velocity, direction * speed, delta * acceleration)
+	
+	update_interface()
 	
 	move_and_slide(velocity + Vector3.UP * vertical_velocity - get_floor_normal() * weight_on_ground, Vector3.UP,false,4,2)
 	
@@ -114,6 +144,6 @@ func _physics_process(delta):
 		tree.set("parameters/Blend3/blend_amount", iw_blend)
 	else:
 		tree.set("parameters/Blend3/blend_amount", wr_blend)
-		
+	
 	aim_turn = 0
 	
