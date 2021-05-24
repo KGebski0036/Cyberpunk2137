@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+
+[sub_resource type="BoxShape" id=1]
+
+[sub_resource type="CubeMesh" id=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 0.517647, 0.988235, 0.164706, 1 )
+
+[sub_resource type="SphereMesh" id=4]
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[node name="Player" type="KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 0.410862, 0, 0, 0, 1, 0, 1.14747, 0 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="CollisionShape"]
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="CollisionShape/MeshInstance"]
+transform = Transform( 0.260514, 0, 0, 0, 0.590392, 0, 0, 0, 0.203833, 0.447171, -0.0155733, 0.991112 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="CollisionShape/MeshInstance"]
+transform = Transform( 0.260514, 0, 0, 0, 0.590392, 0, 0, 0, 0.203833, -0.440573, -0.0155733, 1.0164 )
+mesh = SubResource( 4 )
+material/0 = SubResource( 5 )
