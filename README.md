@@ -1,3 +1,0 @@
-# Pająk
-gra o pająku
-
