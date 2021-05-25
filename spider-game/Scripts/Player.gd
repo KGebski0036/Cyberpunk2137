@@ -1,7 +1,10 @@
 extends KinematicBody
 
+
 var move_vector = Vector3.ZERO
-var speed = 5
+var speed = 20
+
+
 
 func get_controls():
 
@@ -13,6 +16,10 @@ func _input(event):
 	if Input.get_action_strength("right_click"):
 		$"../Camera1".current = false
 		$"../Camera2".current = true
+		print(GlobalVariables.lo)
+		GlobalVariables.lo += 1
+	if Input.get_action_strength("ui_end"):
+		get_tree().reload_current_scene()
 
 		
 func _physics_process(delta):

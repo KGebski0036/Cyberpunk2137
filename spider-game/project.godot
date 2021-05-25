@@ -14,6 +14,10 @@ config/name="spider-game"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+GlobalVariables="*res://Scripts/GlobalVariables.gd"
+
 [input]
 
 left={

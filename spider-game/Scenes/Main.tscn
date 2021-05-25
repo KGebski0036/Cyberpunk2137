@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Spider.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Models/3d/terrain.dae" type="PackedScene" id=2]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -31,11 +32,11 @@ shape = SubResource( 1 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
-[node name="Camera1" type="Camera" parent="."]
-transform = Transform( 0.866025, -0.12941, 0.482963, 0, 0.965926, 0.258819, -0.5, -0.224144, 0.836516, 10, 7, 15 )
-
-[node name="Camera2" type="Camera" parent="."]
-transform = Transform( 0.997447, 0.0184823, -0.0689769, -0.0180172, 0.999811, 0.0073594, 0.0690999, -0.00609784, 0.997591, -0.737535, 1.22749, 9.87326 )
-
 [node name="Spatial" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 0.410862, 0, 0, 0, 1, 0, 1.87543, 0 )
+transform = Transform( -0.00471237, 0, -0.999989, 0, 0.410862, 0, 0.999989, 0, -0.00471237, 0, 1.87543, 0 )
+
+[node name="Camera1" type="Camera" parent="Spatial"]
+transform = Transform( -0.991554, -0.0335677, 0.125276, 0, 2.35097, 0.629943, -0.129695, 0.256634, -0.957767, 1.20876, 2.87213, -2.51576 )
+
+[node name="terrain" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.3199, 3.30116, 1.29169 )
