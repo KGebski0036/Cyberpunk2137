@@ -35,8 +35,9 @@ material/0 = SubResource( 3 )
 [node name="Spatial" parent="." instance=ExtResource( 1 )]
 transform = Transform( -0.00471237, 0, -0.999989, 0, 0.410862, 0, 0.999989, 0, -0.00471237, 0, 1.87543, 0 )
 
-[node name="Camera1" type="Camera" parent="Spatial"]
-transform = Transform( -0.991554, -0.0335677, 0.125276, 0, 2.35097, 0.629943, -0.129695, 0.256634, -0.957767, 1.20876, 2.87213, -2.51576 )
-
 [node name="terrain" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.3199, 3.30116, 1.29169 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.36046, -0.361274, 0.859971, 0.852195, 0.247301, 0.461093, -0.379253, 0.899068, 0.218733, 0, 46.7565, 0 )
+shadow_enabled = true

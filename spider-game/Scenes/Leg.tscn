@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Models/3d/leg.gltf" type="PackedScene" id=1]
+
+[node name="Leg" type="Node"]
+
+[node name="leg" parent="." instance=ExtResource( 1 )]

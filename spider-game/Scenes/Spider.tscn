@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Camera.gd" type="Script" id=2]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -34,3 +35,16 @@ material/0 = SubResource( 5 )
 transform = Transform( 0.260514, 0, 0, 0, 0.590392, 0, 0, 0, 0.203833, -0.440573, -0.0155733, 1.0164 )
 mesh = SubResource( 4 )
 material/0 = SubResource( 5 )
+
+[node name="Camroot" type="Spatial" parent="."]
+script = ExtResource( 2 )
+
+[node name="h" type="Spatial" parent="Camroot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41133, 1.91014 )
+
+[node name="v" type="Spatial" parent="Camroot/h"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.73575, -2.0883 )
+
+[node name="Camera" type="ClippedCamera" parent="Camroot/h/v"]
+transform = Transform( -1, 0, -3.25841e-07, 0, 2.43391, 0, 3.25841e-07, 0, -1, 0, 0, -8.593 )
+process_mode = 1
