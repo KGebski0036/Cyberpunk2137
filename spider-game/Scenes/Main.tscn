@@ -32,8 +32,8 @@ shape = SubResource( 1 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 3 )
 
-[node name="Spatial" parent="." instance=ExtResource( 1 )]
-transform = Transform( -0.00471237, 0, -0.999989, 0, 0.410862, 0, 0.999989, 0, -0.00471237, 0, 1.87543, 0 )
+[node name="Player" parent="." instance=ExtResource( 1 )]
+transform = Transform( -0.00471237, 0, -0.999989, 0, 1, 0, 0.999989, 0, -0.00471237, -0.663615, 0.743828, 0 )
 
 [node name="terrain" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.3199, 3.30116, 1.29169 )

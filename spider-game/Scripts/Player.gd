@@ -2,7 +2,7 @@ extends KinematicBody
 
 
 var move_vector = Vector3.ZERO
-var speed = 20
+var speed = 10
 
 
 
