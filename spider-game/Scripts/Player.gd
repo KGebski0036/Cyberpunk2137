@@ -4,8 +4,6 @@ extends KinematicBody
 var move_vector = Vector3.ZERO
 var speed = 10
 
-
-
 func get_controls():
 
 	move_vector.x = Input.get_action_strength("left") - Input.get_action_strength("right")
