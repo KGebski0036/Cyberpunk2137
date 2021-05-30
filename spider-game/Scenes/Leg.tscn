@@ -90,10 +90,6 @@ magnet = Vector3( -3.289, 10, 1.003 )
 target_node = NodePath("../../../../../Leg1_T")
 
 [node name="RayFront" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.5, -0.866025, 0, 0.866025, 0.5, 8.67249, 9.4684, 3.37678 )
+transform = Transform( -0.866025, -0.433012, -0.25, -0.0938458, 0.620544, -0.749722, 0.479775, -0.508509, -0.781225, 1.92117, 4.98663, 6.14458 )
 enabled = true
-cast_to = Vector3( 0, -15, 0 )
-
-[node name="RayBack" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 1.5815, 4.53945, 6.47434 )
 cast_to = Vector3( 0, -15, 0 )

@@ -56,6 +56,10 @@ process_mode = 1
 [node name="Leg1" parent="Body" instance=ExtResource( 3 )]
 target_path_relative = NodePath("../../Leg1_T")
 
+[node name="Leg2" parent="Body" instance=ExtResource( 3 )]
+transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 0.2, -4.14015, -2.48783, -1.54159 )
+target_path_relative = NodePath("../../Leg2_T")
+
 [node name="Leg1_T" type="Position3D" parent="."]
 transform = Transform( -0.0300888, -0.197487, -0.0096666, 0.119212, -0.016871, -0.0263926, 0.0409636, -0.015792, 0.195122, -3.47779, 0.669485, -0.125527 )
 __meta__ = {
@@ -63,3 +67,11 @@ __meta__ = {
 }
 
 [node name="CSGSphere" type="CSGSphere" parent="Leg1_T"]
+
+[node name="Leg2_T" type="Position3D" parent="."]
+transform = Transform( -0.0300888, -0.197487, -0.0096666, 0.119212, -0.016871, -0.0263926, 0.0409636, -0.015792, 0.195122, -3.47779, 0.669485, -2.75462 )
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CSGSphere" type="CSGSphere" parent="Leg2_T"]
