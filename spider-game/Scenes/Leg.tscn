@@ -89,9 +89,15 @@ use_magnet = true
 magnet = Vector3( -3.289, 10, 1.003 )
 target_node = NodePath("../../../../../Leg1_T")
 
-[node name="RayFront" type="RayCast" parent="."]
-transform = Transform( -0.866025, -0.433012, -0.25, -0.0938458, 0.620544, -0.749722, 0.479775, -0.508509, -0.781225, 1.92117, 4.98663, 6.14458 )
+[node name="Ray" type="RayCast" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4.5, 4.5 )
 enabled = true
-cast_to = Vector3( 0, -15, 0 )
+cast_to = Vector3( 0, -15, 15 )
+
+[node name="CSGBox" type="CSGBox" parent="Ray"]
+width = 3.4563
+depth = 3.58039
+
+[node name="WHEREITFUCKINGHITS" type="CSGBox" parent="."]
 
 [node name="WHERESGOAL" type="CSGBox" parent="."]
