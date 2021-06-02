@@ -90,9 +90,9 @@ magnet = Vector3( -3.289, 10, 1.003 )
 target_node = NodePath("../../../../../Leg1_T")
 
 [node name="Ray" type="RayCast" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 4.5, 4.5 )
+transform = Transform( 1, 0, 0, 0, 1.06862, 0, 0, 0, 0.96794, 5.6998, 8.21906, 4.5 )
 enabled = true
-cast_to = Vector3( 0, -15, 15 )
+cast_to = Vector3( 0, -10, -100 )
 
 [node name="CSGBox" type="CSGBox" parent="Ray"]
 width = 3.4563
