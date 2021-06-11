@@ -124,3 +124,8 @@ __meta__ = {
 }
 
 [node name="CSGSphere" type="CSGSphere" parent="LegT4"]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.17
+
+[connection signal="timeout" from="Timer" to="Body" method="_on_Timer_timeout"]
