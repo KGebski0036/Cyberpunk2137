@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Camera.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Leg.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/LegsControler.gd" type="Script" id=4]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -53,25 +54,73 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.73575, -2.0883 )
 transform = Transform( -1, 0, -3.25841e-07, 0, 2.43391, 0, 3.25841e-07, 0, -1, 0, 0, -8.593 )
 process_mode = 1
 
-[node name="Leg1" parent="Body" instance=ExtResource( 3 )]
-target_path_relative = NodePath("../../Leg1_T")
+[node name="LegsControler" type="Spatial" parent="Body"]
+script = ExtResource( 4 )
 
-[node name="Leg2" parent="Body" instance=ExtResource( 3 )]
-transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 0.2, -4.14015, -2.48783, -1.54159 )
-target_path_relative = NodePath("../../Leg2_T")
+[node name="Leg2" parent="Body/LegsControler" instance=ExtResource( 3 )]
+transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 0.2, -3.95868, -2.48783, -0.249165 )
+target_path_relative = NodePath("../../../LegT2")
+default_pos_path_relative = NodePath("../../DefPos2")
 
-[node name="Leg1_T" type="Position3D" parent="."]
-transform = Transform( -0.0300888, -0.197487, -0.0096666, 0.119212, -0.016871, -0.0263926, 0.0409636, -0.015792, 0.195122, -3.47779, 0.669485, -0.125527 )
+[node name="Leg3" parent="Body/LegsControler" instance=ExtResource( 3 )]
+transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 0.2, -3.84047, -2.48783, -1.56636 )
+target_path_relative = NodePath("../../../LegT3")
+default_pos_path_relative = NodePath("../../DefPos3")
+
+[node name="Leg4" parent="Body/LegsControler" instance=ExtResource( 3 )]
+transform = Transform( -0.2, 0, -1.74846e-08, 0, 0.3, 0, 1.74846e-08, 0, -0.2, 3.79539, -2.48783, 0.275902 )
+target_path_relative = NodePath("../../../LegT4")
+default_pos_path_relative = NodePath("../../DefPos4")
+
+[node name="Leg1" parent="Body/LegsControler" instance=ExtResource( 3 )]
+transform = Transform( -0.2, 0, -1.74846e-08, 0, 0.3, 0, 1.74846e-08, 0, -0.2, 3.69381, -2.48783, 1.59491 )
+target_path_relative = NodePath("../../../LegT1")
+default_pos_path_relative = NodePath("../../DefPos1")
+
+[node name="DefPos1" type="Position3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 2.43391, 0, 0, 0, 1, 2.19931, -2.40522, 0.695105 )
+
+[node name="DefPos2" type="Position3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 2.43391, 0, 0, 0, 1, -2.34251, -2.40522, 0.695105 )
+
+[node name="DefPos3" type="Position3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 2.43391, 0, 0, 0, 1, -2.34251, -2.40522, -0.640725 )
+
+[node name="DefPos4" type="Position3D" parent="Body"]
+transform = Transform( 1, 0, 0, 0, 2.43391, 0, 0, 0, 1, 2.19931, -2.40522, -0.640725 )
+
+[node name="LegT1" type="Position3D" parent="."]
+transform = Transform( -0.0300888, -0.197487, -0.0096666, 0.119212, -0.016871, -0.0263926, 0.0409636, -0.015792, 0.195122, -1.27674, 0.669485, -0.125527 )
+visible = false
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="CSGSphere" type="CSGSphere" parent="Leg1_T"]
+[node name="CSGSphere" type="CSGSphere" parent="LegT1"]
 
-[node name="Leg2_T" type="Position3D" parent="."]
-transform = Transform( -0.0300888, -0.197487, -0.0096666, 0.119212, -0.016871, -0.0263926, 0.0409636, -0.015792, 0.195122, -3.47779, 0.669485, -2.75462 )
+[node name="LegT2" type="Position3D" parent="."]
+transform = Transform( -0.0300888, -0.197487, -0.0096666, 0.119212, -0.016871, -0.0263926, 0.0409636, -0.015792, 0.195122, -1.27674, 0.669485, -0.125527 )
+visible = false
 __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="CSGSphere" type="CSGSphere" parent="Leg2_T"]
+[node name="CSGSphere" type="CSGSphere" parent="LegT2"]
+
+[node name="LegT3" type="Position3D" parent="."]
+transform = Transform( -0.0300888, -0.197487, -0.0096666, 0.119212, -0.016871, -0.0263926, 0.0409636, -0.015792, 0.195122, -1.27674, 0.669485, -0.125527 )
+visible = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CSGSphere" type="CSGSphere" parent="LegT3"]
+
+[node name="LegT4" type="Position3D" parent="."]
+transform = Transform( -0.0300888, -0.197487, -0.0096666, 0.119212, -0.016871, -0.0263926, 0.0409636, -0.015792, 0.195122, -1.27674, 0.669485, -0.125527 )
+visible = false
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CSGSphere" type="CSGSphere" parent="LegT4"]
