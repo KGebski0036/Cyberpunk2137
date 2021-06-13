@@ -24,10 +24,10 @@ var targetpoint : Vector3 = Vector3.ZERO
 var default_pos = false
 var blocked = false
 var leg_go_to_goalpoint = false
-var i
+var leg_move_progress # 0-1 means going towards the end of motion, >1 means going back
 var left = 1 # -1 means left 1 means right
 
-signal block_even_or_odd_legs(witch)
+signal block_even_or_odd_legs(which)
 signal go_to_default_position()
 
 func _ready():
@@ -45,8 +45,8 @@ func _ready():
 
 func _physics_process(_delta):
 	if leg_go_to_goalpoint:
-		i += SMOOTHNESS
-		if defaultpos.global_transform.origin.distance_to(targetpoint) < 0.5 && i > 1:
+		leg_move_progress += SMOOTHNESS
+		if defaultpos.global_transform.origin.distance_to(targetpoint) < 0.5 && leg_move_progress > 1:
 			emit_signal("block_even_or_odd_legs", index % 2)
 			leg_go_to_goalpoint = false
 	
@@ -58,7 +58,7 @@ func _physics_process(_delta):
 			if goalpoint.distance_to(hitpoint) > DISTANCE:
 				goalpoint = hitpoint + Vector3.UP*0.5
 				leg_go_to_goalpoint = true
-				i = 0
+				leg_move_progress = 0
 		
 			timer_to_default_pos.stop()
 			default_pos = false
