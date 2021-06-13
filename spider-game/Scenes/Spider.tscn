@@ -57,22 +57,22 @@ process_mode = 1
 [node name="LegsControler" type="Spatial" parent="Body"]
 script = ExtResource( 4 )
 
-[node name="Leg2" parent="Body/LegsControler" instance=ExtResource( 3 )]
+[node name="Leg1" parent="Body/LegsControler" instance=ExtResource( 3 )]
 transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 0.2, -3.95868, -2.48783, -0.249165 )
 target_path_relative = NodePath("../../../LegT2")
 default_pos_path_relative = NodePath("../../DefPos2")
 
-[node name="Leg3" parent="Body/LegsControler" instance=ExtResource( 3 )]
+[node name="Leg2" parent="Body/LegsControler" instance=ExtResource( 3 )]
 transform = Transform( 0.2, 0, 0, 0, 0.3, 0, 0, 0, 0.2, -3.84047, -2.48783, -1.56636 )
 target_path_relative = NodePath("../../../LegT3")
 default_pos_path_relative = NodePath("../../DefPos3")
 
-[node name="Leg4" parent="Body/LegsControler" instance=ExtResource( 3 )]
+[node name="Leg3" parent="Body/LegsControler" instance=ExtResource( 3 )]
 transform = Transform( -0.2, 0, -1.74846e-08, 0, 0.3, 0, 1.74846e-08, 0, -0.2, 3.79539, -2.48783, 0.275902 )
 target_path_relative = NodePath("../../../LegT4")
 default_pos_path_relative = NodePath("../../DefPos4")
 
-[node name="Leg1" parent="Body/LegsControler" instance=ExtResource( 3 )]
+[node name="Leg0" parent="Body/LegsControler" instance=ExtResource( 3 )]
 transform = Transform( -0.2, 0, -1.74846e-08, 0, 0.3, 0, 1.74846e-08, 0, -0.2, 3.69381, -2.48783, 1.59491 )
 target_path_relative = NodePath("../../../LegT1")
 default_pos_path_relative = NodePath("../../DefPos1")

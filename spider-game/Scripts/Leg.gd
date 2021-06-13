@@ -11,6 +11,7 @@ onready var player = $"../.."
 onready var target_path_absolute = "../../../" + target_path_relative
 onready var target : Spatial = get_node(target_path_relative) 
 onready var defaultpos = get_node(default_pos_path_relative)
+onready var timer_to_default_pos = $TimeToDefPos
 
 export var DISTANCE = 3.2
 export var SMOOTHNESS = 0.15
@@ -20,14 +21,14 @@ var hitpoint
 var goalpoint
 var targetpoint : Vector3 = Vector3.ZERO
 
-var defpos = false
+var default_pos = false
 var blocked = false
-var kkk
+var leg_go_to_goalpoint = false
 var i
-var left = 1
+var left = 1 # -1 means left 1 means right
 
-signal moved(witch)
-signal dif_position
+signal block_even_or_odd_legs(witch)
+signal go_to_default_position()
 
 func _ready():
 	raycast.cast_to = Vector3(0,-15,0) 
@@ -36,18 +37,18 @@ func _ready():
 	goalpoint = hitpoint + Vector3.UP*0.5
 	targetpoint = goalpoint
 	
-	var _yyet = connect("moved", get_parent(), "_on_Leg_moved")
-	var _yyet2 = connect("dif_position", get_parent(), "_on_dif_position")
+	var _uv0 = connect("block_even_or_odd_legs", get_parent(), "_on_block_even_or_odd_legs")
+	var _uv1 = connect("go_to_default_position", get_parent(), "_on_go_to_default_position")
 	
 	IK.target_node = target_path_absolute
 	IK.start()
 
 func _physics_process(_delta):
-	if kkk:
+	if leg_go_to_goalpoint:
 		i += SMOOTHNESS
 		if defaultpos.global_transform.origin.distance_to(targetpoint) < 0.5 && i > 1:
-			emit_signal("moved", index % 2)
-			kkk = false
+			emit_signal("block_even_or_odd_legs", index % 2)
+			leg_go_to_goalpoint = false
 	
 	if(player.move_vector != Vector3.ZERO):
 		raycast.cast_to = Vector3(player.move_vector.z * 25 * left,-15,-player.move_vector.x * 24 * left) 
@@ -56,22 +57,18 @@ func _physics_process(_delta):
 			hitpoint = raycast.get_collision_point()
 			if goalpoint.distance_to(hitpoint) > DISTANCE:
 				goalpoint = hitpoint + Vector3.UP*0.5
-				kkk = true
+				leg_go_to_goalpoint = true
 				i = 0
 		
-			
-	
-		
-		if !$TimeToDefPos.is_stopped():
-			$TimeToDefPos.stop()
-			defpos = false
+			timer_to_default_pos.stop()
+			default_pos = false
 	else:
 		raycast.cast_to = Vector3(0,-15,0)
-		if $TimeToDefPos.is_stopped():
-			$TimeToDefPos.start()
+		if timer_to_default_pos.is_stopped():
+			timer_to_default_pos.start()
 			
-		if defpos:
-			emit_signal("dif_position")
+		if default_pos:
+			emit_signal("go_to_default_position")
 			hitpoint = raycast.get_collision_point()
 			goalpoint = hitpoint + Vector3.UP*0.5
 
@@ -84,7 +81,7 @@ func _physics_process(_delta):
 	whereitfuckinghits.global_transform.origin = hitpoint
 
 func _on_TimeToDefPos_timeout():
-	defpos = true
+	default_pos = true
 
 	
 
