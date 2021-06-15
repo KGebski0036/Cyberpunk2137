@@ -62,6 +62,7 @@ func _physics_process(_delta):
 		
 			timer_to_default_pos.stop()
 			default_pos = false
+		targetpoint = targetpoint.linear_interpolate(goalpoint,SMOOTHNESS)
 	else:
 		raycast.cast_to = Vector3(0,-15,0)
 		if timer_to_default_pos.is_stopped():
@@ -71,9 +72,9 @@ func _physics_process(_delta):
 			emit_signal("go_to_default_position")
 			hitpoint = raycast.get_collision_point()
 			goalpoint = hitpoint + Vector3.UP*0.5
-
+			targetpoint = targetpoint.linear_interpolate(goalpoint,SMOOTHNESS)
 			
-	targetpoint = targetpoint.linear_interpolate(goalpoint,SMOOTHNESS)
+	
 
 
 	target.global_transform.origin = targetpoint

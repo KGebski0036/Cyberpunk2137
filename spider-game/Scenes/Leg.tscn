@@ -94,15 +94,12 @@ enabled = true
 cast_to = Vector3( 0, -10, 100 )
 
 [node name="CSGBox" type="CSGBox" parent="Ray"]
-visible = false
 width = 3.4563
 depth = 3.58039
 
 [node name="WHEREITFUCKINGHITS" type="CSGBox" parent="."]
-visible = false
 
 [node name="WHERESGOAL" type="CSGBox" parent="."]
-visible = false
 
 [node name="TimeToDefPos" type="Timer" parent="."]
 wait_time = 0.25

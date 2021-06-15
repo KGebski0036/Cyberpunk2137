@@ -45,13 +45,13 @@ material/0 = SubResource( 5 )
 script = ExtResource( 2 )
 
 [node name="h" type="Spatial" parent="Body/Camroot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41133, 1.91014 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.47862, 1.24163 )
 
 [node name="v" type="Spatial" parent="Body/Camroot/h"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.73575, -2.0883 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.95357, -2.0883 )
 
 [node name="Camera" type="ClippedCamera" parent="Body/Camroot/h/v"]
-transform = Transform( -1, 0, -3.25841e-07, 0, 2.43391, 0, 3.25841e-07, 0, -1, 0, 0, -8.593 )
+transform = Transform( -1, 0, -3.25841e-07, 0, 2.43391, 0, 3.25841e-07, 0, -1, 0, 2.87235, -7.42634 )
 process_mode = 1
 
 [node name="LegsControler" type="Spatial" parent="Body"]
